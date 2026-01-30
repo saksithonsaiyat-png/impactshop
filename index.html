@@ -2,115 +2,119 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Premium Trading E-Books</title>
+<title>Premium E-Books</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Segoe UI,sans-serif}
+body{
+  font-family:Segoe UI,sans-serif;
+  background:#000;
+  color:#fff;
+}
 
-/* HERO */
+/* ===== BG ===== */
+.bg{
+  position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(circle at 20% 20%,#2a2a2a,transparent 40%),
+    radial-gradient(circle at 80% 30%,#3a2f00,transparent 45%),
+    radial-gradient(circle at 50% 80%,#002d2a,transparent 40%);
+}
+
+/* ===== HERO ===== */
 .hero{
-  height:100vh;
+  height:85vh;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  background:radial-gradient(circle at top,#1c1c1c,#000 70%);
 }
-.hero h1{font-size:3.2rem;font-weight:900}
-.hero p{opacity:.7;margin-top:12px}
+.hero h1{font-size:3rem;font-weight:900}
+.hero p{opacity:.6;margin:12px 0 26px}
 .hero a{
-  margin-top:28px;
-  display:inline-block;
   padding:14px 40px;
-  border-radius:40px;
+  border-radius:50px;
   background:linear-gradient(135deg,#ffd700,#ffb700);
   color:#000;
   font-weight:900;
   text-decoration:none;
 }
 
-/* SECTION */
-section{padding:120px 0}
-h2{text-align:center;font-size:2.5rem;margin-bottom:80px}
-
-/* GRID */
+/* ===== GRID ===== */
+section{padding:80px 0}
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:50px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:32px;
   padding:0 8%;
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .card{
-  background:linear-gradient(180deg,#111,#070707);
-  border-radius:26px;
+  background:#0e0e0e;
+  border-radius:22px;
   overflow:hidden;
-  border:1px solid rgba(255,215,0,.25);
-  transition:.4s;
+  border:1px solid rgba(255,215,0,.18);
+  transition:.3s;
 }
-.card:hover{
-  transform:translateY(-12px);
-  border-color:#ffd700;
-}
+.card:hover{transform:translateY(-6px)}
 
-/* IMAGE */
-.cover{height:230px}
-.cover img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.cover{height:150px}
+.cover img{width:100%;height:100%;object-fit:cover}
+.content{padding:18px}
+.price{
+  font-size:1.5rem;
+  color:#ffd700;
+  font-weight:900;
+  margin:10px 0;
 }
-
-/* CONTENT */
-.content{padding:26px}
-.content h3{font-size:1.3rem}
-.tag{font-size:.85rem;opacity:.6}
-.price{font-size:1.8rem;color:#ffd700;font-weight:900;margin:16px 0}
 .btn{
   width:100%;
-  padding:14px;
+  padding:12px;
   border-radius:50px;
   border:none;
   background:linear-gradient(135deg,#0bd3b0,#068b79);
   font-weight:800;
-  cursor:pointer;
 }
 
-/* MODAL */
+/* ===== MODAL BASE ===== */
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.9);
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
   display:none;
   justify-content:center;
-  align-items:center;
-  z-index:100;
+  align-items:flex-end;
+  z-index:999;
 }
 .modal.active{display:flex}
 
-.modal-box{
+.sheet{
+  width:100%;
+  max-width:460px;
   background:#111;
-  padding:34px;
-  border-radius:26px;
-  max-width:420px;
-  width:90%;
+  border-radius:26px 26px 0 0;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
+  animation:up .35s ease;
+}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+
+.header{
+  position:relative;
+  padding:14px;
   text-align:center;
 }
-.modal-box img{
-  width:100%;
-  border-radius:16px;
-  margin-bottom:18px;
-}
-.qr{
-  width:220px;
-  margin:22px auto;
-}
-.qr img{
-  width:100%;
-  border-radius:14px;
+.drag{width:44px;height:4px;background:#555;border-radius:4px;margin:0 auto 10px}
+.close{position:absolute;right:16px;top:8px;font-size:26px;cursor:pointer}
+
+.body{padding:18px;overflow:auto}
+.body img{width:100%;border-radius:14px;margin-bottom:14px}
+
+.footer{
+  padding:16px;
+  border-top:1px solid rgba(255,255,255,.1);
 }
 .buy{
   width:100%;
@@ -119,112 +123,137 @@ h2{text-align:center;font-size:2.5rem;margin-bottom:80px}
   border:none;
   background:linear-gradient(135deg,#ffd700,#ffb700);
   font-weight:900;
+  cursor:pointer;
 }
 
+/* QR */
+.qr{text-align:center}
+.qr img{width:200px;margin:16px auto}
+
 footer{text-align:center;padding:40px 0;opacity:.4}
+
+.qr-note{
+  color:#ffd700;
+  font-weight:800;
+  margin-bottom:10px;
+  font-size:1rem;
+}
+
 </style>
 </head>
 
 <body>
+<div class="bg"></div>
 
 <div class="hero">
   <div>
     <h1>Premium Trading E-Books</h1>
-    <p>ICT • SMC • Structure Mastery</p>
+    <p>ICT • Smart Money • Market Structure</p>
     <a href="#products">ดูสินค้า</a>
   </div>
 </div>
 
 <section id="products">
-<h2>Premium E-Books</h2>
-
 <div class="grid">
 
   <div class="card">
-    <div class="cover"><img src="ict.jpg"></div>
+    <div class="cover">
+      <img src="ict.jpg" onerror="this.src='https://via.placeholder.com/600x400?text=ICT'">
+    </div>
     <div class="content">
       <h3>ICT Trading System</h3>
-      <div class="tag">Institutional Concept</div>
       <div class="price">฿339</div>
-      <button class="btn"
-        onclick="openModal('ict.jpg','ICT Trading System','Institutional Concept','339','qr-ict.png')">
-        ดูรายละเอียด
-      </button>
+      <button class="btn" onclick="openModal('ict.jpg','ICT Trading System','Institutional Concept','339')">ดูรายละเอียด</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="cover"><img src="smc.jpg"></div>
+    <div class="cover">
+      <img src="smc.jpg" onerror="this.src='https://via.placeholder.com/600x400?text=SMC'">
+    </div>
     <div class="content">
       <h3>SMC Pro Blueprint</h3>
-      <div class="tag">Smart Money Concept</div>
       <div class="price">฿290</div>
-      <button class="btn"
-        onclick="openModal('smc.jpg','SMC Pro Blueprint','Smart Money Concept','290','qr-smc.png')">
-        ดูรายละเอียด
-      </button>
+      <button class="btn" onclick="openModal('smc.jpg','SMC Pro Blueprint','Smart Money Concept','290')">ดูรายละเอียด</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="cover"><img src="msnr.jpg"></div>
+    <div class="cover">
+      <img src="msnr.jpg" onerror="this.src='https://via.placeholder.com/600x400?text=MSNR'">
+    </div>
     <div class="content">
       <h3>MSNR Advanced</h3>
-      <div class="tag">Structure Mastery</div>
       <div class="price">฿459</div>
-      <button class="btn"
-        onclick="openModal('msnr.jpg','MSNR Advanced','Structure Mastery','459','qr-msnr.png')">
-        ดูรายละเอียด
-      </button>
+      <button class="btn" onclick="openModal('msnr.jpg','MSNR Advanced','Market Structure','459')">ดูรายละเอียด</button>
     </div>
   </div>
 
 </div>
 </section>
 
-<!-- MODAL -->
+<!-- PRODUCT MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-box">
-    <img id="mImg">
-    <h3 id="mTitle"></h3>
-    <p id="mDesc"></p>
-    <div class="price" id="mPrice"></div>
-
-    <div class="qr">
-      <img id="mQR">
+  <div class="sheet">
+    <div class="header">
+      <div class="drag"></div>
+      <div class="close" onclick="closeModal()">×</div>
     </div>
+    <div class="body">
+      <img id="mImg">
+      <h2 id="mTitle"></h2>
+      <p id="mDesc"></p>
+      <div class="price" id="mPrice"></div>
 
-    <button class="buy" onclick="goLine()">แจ้งชำระเงินทาง LINE</button>
+      <div class="qr">
+  <div class="qr-note">กรุณาชำระเงินโดยสแกน QR ด้านล่าง</div>
+  <img src="qr-pay.png" onerror="this.src='https://via.placeholder.com/300?text=QR'">
+      </div>
+    </div>
+    <div class="footer">
+      <button class="buy" onclick="openLineQR()">คิวอาร์โค้ด Line / ส่งสลิป</button>
+    </div>
   </div>
 </div>
 
-<footer>© 2026 Premium Trading E-Books</footer>
+<!-- LINE QR MODAL -->
+<div class="modal" id="lineModal">
+  <div class="sheet">
+    <div class="header">
+      <div class="drag"></div>
+      <div class="close" onclick="closeLineQR()">×</div>
+    </div>
+    <div class="body qr">
+      <h2>แจ้งชำระผ่าน LINE</h2>
+      <img src="qr-line.png" onerror="this.src='https://via.placeholder.com/300?text=LINE+QR'">
+      <p>สแกน QR เพื่อแอดไลน์</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Premium E-Books</footer>
 
 <script>
 const modal=document.getElementById("modal");
+const lineModal=document.getElementById("lineModal");
 const mImg=document.getElementById("mImg");
 const mTitle=document.getElementById("mTitle");
 const mDesc=document.getElementById("mDesc");
 const mPrice=document.getElementById("mPrice");
-const mQR=document.getElementById("mQR");
 
-function openModal(img,title,desc,price,qr){
+function openModal(img,title,desc,price){
   mImg.src=img;
   mTitle.innerText=title;
   mDesc.innerText=desc;
   mPrice.innerText="฿"+price;
-  mQR.src=qr;
   modal.classList.add("active");
 }
+function closeModal(){modal.classList.remove("active")}
+function openLineQR(){lineModal.classList.add("active")}
+function closeLineQR(){lineModal.classList.remove("active")}
 
-modal.onclick=e=>{
-  if(e.target===modal) modal.classList.remove("active");
-}
-
-function goLine(){
-  window.location.href =
-  "https://line.me/R/oaMessage/@firstzy77/?แจ้งชำระเงินสินค้า";
-}
+modal.onclick=e=>{if(e.target===modal)closeModal()}
+lineModal.onclick=e=>{if(e.target===lineModal)closeLineQR()}
 </script>
 
 </body>
