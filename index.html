@@ -26,99 +26,135 @@ body{
     radial-gradient(circle at top, rgba(255,215,0,.25), transparent 55%),
     linear-gradient(180deg,#000,#0b0b0b);
 }
-.hero h1{font-size:clamp(2.3rem,5vw,4rem);font-weight:800}
-.hero p{opacity:.75;margin-top:10px}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:800}
+.hero p{opacity:.7;margin-top:10px}
 .hero button{
   margin-top:40px;
-  padding:16px 44px;
+  padding:16px 46px;
   border:none;
   border-radius:50px;
   background:linear-gradient(135deg,#ffd700,#ffb700);
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
   transition:.35s;
 }
 .hero button:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 35px rgba(255,215,0,.6);
+  transform:scale(1.08);
+  box-shadow:0 0 40px rgba(255,215,0,.65);
 }
 
 /* PRODUCTS */
 .products{
-  padding:100px 8%;
+  padding:120px 8%;
   background:#0b0b0b;
 }
 .products h2{
   text-align:center;
-  font-size:2.3rem;
-  margin-bottom:70px;
+  font-size:2.4rem;
+  margin-bottom:80px;
+  letter-spacing:.5px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:35px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:45px;
 }
 
+/* CARD */
 .card{
   position:relative;
-  padding:32px;
-  border-radius:22px;
-  background:linear-gradient(180deg,#111,#0b0b0b);
-  border:1px solid rgba(255,215,0,.15);
+  padding:36px;
+  border-radius:26px;
+  background:
+    linear-gradient(180deg,#111,#090909);
+  border:1px solid rgba(255,215,0,.18);
   overflow:hidden;
   cursor:pointer;
-  transition:.45s;
+  transition:.5s;
 }
 
-.card::before{
+/* animated glow */
+.card::after{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,transparent,rgba(255,215,0,.25),transparent);
+  inset:-1px;
+  background:
+    linear-gradient(120deg,transparent,rgba(255,215,0,.35),transparent);
   opacity:0;
-  transition:.4s;
+  transition:.5s;
 }
-.card:hover::before{opacity:1}
+
+.card:hover::after{opacity:1}
+
+/* top icon */
+.icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#ffd700,#ffb700);
+  color:#000;
+  font-weight:900;
+  margin-bottom:18px;
+}
 
 .card:hover{
-  transform:translateY(-14px) scale(1.02);
-  box-shadow:0 35px 70px rgba(0,0,0,.8);
+  transform:translateY(-16px) scale(1.03);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.8),
+    0 0 40px rgba(255,215,0,.2);
   border-color:#ffd700;
 }
 
 .badge{
   position:absolute;
-  top:18px;
-  right:-40px;
+  top:20px;
+  right:-48px;
   background:#ffd700;
   color:#000;
-  padding:6px 50px;
+  padding:6px 60px;
   font-size:.75rem;
-  font-weight:700;
+  font-weight:800;
   transform:rotate(45deg);
 }
 
-.card h3{font-size:1.3rem;margin-bottom:8px}
-.tag{font-size:.85rem;opacity:.65}
+.card h3{
+  font-size:1.35rem;
+  margin-bottom:6px;
+}
+.tag{
+  font-size:.85rem;
+  opacity:.6;
+}
+
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,#ffd700,transparent);
+  margin:22px 0;
+  opacity:.35;
+}
 
 .price{
-  margin-top:24px;
-  font-size:1.7rem;
-  font-weight:800;
+  font-size:1.9rem;
+  font-weight:900;
   color:#ffd700;
 }
 
 .buy-mini{
-  margin-top:26px;
-  padding:12px;
+  margin-top:28px;
+  padding:14px;
   width:100%;
   border:none;
   border-radius:50px;
-  background:linear-gradient(135deg,#00ffcc,#00bfa5);
-  font-weight:700;
+  background:linear-gradient(135deg,#00ffd0,#00bfa5);
+  font-weight:800;
+  letter-spacing:.3px;
+  cursor:pointer;
   opacity:0;
-  transform:translateY(10px);
+  transform:translateY(12px);
   transition:.35s;
 }
 
@@ -131,7 +167,7 @@ body{
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,.88);
   display:none;
   align-items:center;
   justify-content:center;
@@ -141,14 +177,14 @@ body{
 
 .modal-box{
   background:#111;
-  border-radius:22px;
-  padding:40px;
-  max-width:420px;
+  border-radius:26px;
+  padding:44px;
+  max-width:430px;
   width:90%;
   animation:pop .4s ease;
 }
 @keyframes pop{
-  from{transform:scale(.7);opacity:0}
+  from{transform:scale(.75);opacity:0}
   to{transform:scale(1);opacity:1}
 }
 
@@ -156,20 +192,20 @@ body{
 .buy{
   margin-top:28px;
   width:100%;
-  padding:15px;
+  padding:16px;
   border:none;
   border-radius:50px;
   background:linear-gradient(135deg,#ffd700,#ffb700);
-  font-weight:800;
+  font-weight:900;
 }
 
-.qr{text-align:center;margin-top:20px}
-.qr img{width:180px;border-radius:10px}
+.qr{text-align:center;margin-top:24px}
+.qr img{width:180px;border-radius:12px}
 
 footer{
   text-align:center;
   padding:40px;
-  opacity:.5;
+  opacity:.45;
 }
 </style>
 </head>
@@ -180,7 +216,9 @@ footer{
   <div>
     <h1>Institutional Trading Knowledge</h1>
     <p>MSNR • ICT • SMC – Premium E-Books</p>
-    <button onclick="document.querySelector('#shop').scrollIntoView()">Explore Strategies</button>
+    <button onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">
+      Explore Strategies
+    </button>
   </div>
 </section>
 
@@ -191,23 +229,29 @@ footer{
 
     <div class="card" onclick="openModal('ICT Trading System','Smart Money + Liquidity Model','339')">
       <div class="badge">BEST SELLER</div>
+      <div class="icon">📘</div>
       <h3>ICT Trading System</h3>
       <div class="tag">Institutional Concept</div>
+      <div class="divider"></div>
       <div class="price">฿339</div>
       <button class="buy-mini">ดูรายละเอียด</button>
     </div>
 
     <div class="card" onclick="openModal('SMC Pro Blueprint','Orderblock + BOS','290')">
       <div class="badge">POPULAR</div>
+      <div class="icon">📕</div>
       <h3>SMC Pro Blueprint</h3>
       <div class="tag">Smart Money Concept</div>
+      <div class="divider"></div>
       <div class="price">฿290</div>
       <button class="buy-mini">ดูรายละเอียด</button>
     </div>
 
     <div class="card" onclick="openModal('MSNR Advanced','Market Structure Mastery','459')">
+      <div class="icon">📙</div>
       <h3>MSNR Advanced</h3>
       <div class="tag">Structure Mastery</div>
+      <div class="divider"></div>
       <div class="price">฿459</div>
       <button class="buy-mini">ดูรายละเอียด</button>
     </div>
