@@ -2,293 +2,228 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Institutional Trading E-Books</title>
+<title>Premium Trading E-Books</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Inter',sans-serif;
-  background:#000;
-  color:#fff;
-}
+body{background:#000;color:#fff;font-family:Segoe UI,sans-serif}
 
 /* HERO */
 .hero{
-  min-height:100svh;
+  height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
-  background:
-    radial-gradient(circle at top, rgba(255,215,0,.25), transparent 55%),
-    linear-gradient(180deg,#000,#0b0b0b);
+  background:radial-gradient(circle at top,#1c1c1c,#000 70%);
 }
-.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:800}
-.hero p{opacity:.7;margin-top:10px}
-.hero button{
-  margin-top:40px;
-  padding:16px 46px;
-  border:none;
-  border-radius:50px;
+.hero h1{font-size:3.2rem;font-weight:900}
+.hero p{opacity:.7;margin-top:12px}
+.hero a{
+  margin-top:28px;
+  display:inline-block;
+  padding:14px 40px;
+  border-radius:40px;
   background:linear-gradient(135deg,#ffd700,#ffb700);
-  font-weight:800;
-  cursor:pointer;
-  transition:.35s;
-}
-.hero button:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 40px rgba(255,215,0,.65);
+  color:#000;
+  font-weight:900;
+  text-decoration:none;
 }
 
-/* PRODUCTS */
-.products{
-  padding:120px 8%;
-  background:#0b0b0b;
-}
-.products h2{
-  text-align:center;
-  font-size:2.4rem;
-  margin-bottom:80px;
-  letter-spacing:.5px;
-}
+/* SECTION */
+section{padding:120px 0}
+h2{text-align:center;font-size:2.5rem;margin-bottom:80px}
 
+/* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:45px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:50px;
+  padding:0 8%;
 }
 
 /* CARD */
 .card{
-  position:relative;
-  padding:36px;
+  background:linear-gradient(180deg,#111,#070707);
   border-radius:26px;
-  background:
-    linear-gradient(180deg,#111,#090909);
-  border:1px solid rgba(255,215,0,.18);
   overflow:hidden;
-  cursor:pointer;
-  transition:.5s;
+  border:1px solid rgba(255,215,0,.25);
+  transition:.4s;
 }
-
-/* animated glow */
-.card::after{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  background:
-    linear-gradient(120deg,transparent,rgba(255,215,0,.35),transparent);
-  opacity:0;
-  transition:.5s;
-}
-
-.card:hover::after{opacity:1}
-
-/* top icon */
-.icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#ffd700,#ffb700);
-  color:#000;
-  font-weight:900;
-  margin-bottom:18px;
-}
-
 .card:hover{
-  transform:translateY(-16px) scale(1.03);
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.8),
-    0 0 40px rgba(255,215,0,.2);
+  transform:translateY(-12px);
   border-color:#ffd700;
 }
 
-.badge{
-  position:absolute;
-  top:20px;
-  right:-48px;
-  background:#ffd700;
-  color:#000;
-  padding:6px 60px;
-  font-size:.75rem;
-  font-weight:800;
-  transform:rotate(45deg);
-}
-
-.card h3{
-  font-size:1.35rem;
-  margin-bottom:6px;
-}
-.tag{
-  font-size:.85rem;
-  opacity:.6;
-}
-
-.divider{
-  height:1px;
-  background:linear-gradient(90deg,transparent,#ffd700,transparent);
-  margin:22px 0;
-  opacity:.35;
-}
-
-.price{
-  font-size:1.9rem;
-  font-weight:900;
-  color:#ffd700;
-}
-
-.buy-mini{
-  margin-top:28px;
-  padding:14px;
+/* IMAGE */
+.cover{height:230px}
+.cover img{
   width:100%;
-  border:none;
-  border-radius:50px;
-  background:linear-gradient(135deg,#00ffd0,#00bfa5);
-  font-weight:800;
-  letter-spacing:.3px;
-  cursor:pointer;
-  opacity:0;
-  transform:translateY(12px);
-  transition:.35s;
+  height:100%;
+  object-fit:cover;
 }
 
-.card:hover .buy-mini{
-  opacity:1;
-  transform:translateY(0);
+/* CONTENT */
+.content{padding:26px}
+.content h3{font-size:1.3rem}
+.tag{font-size:.85rem;opacity:.6}
+.price{font-size:1.8rem;color:#ffd700;font-weight:900;margin:16px 0}
+.btn{
+  width:100%;
+  padding:14px;
+  border-radius:50px;
+  border:none;
+  background:linear-gradient(135deg,#0bd3b0,#068b79);
+  font-weight:800;
+  cursor:pointer;
 }
 
 /* MODAL */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.88);
+  background:rgba(0,0,0,.9);
   display:none;
-  align-items:center;
   justify-content:center;
-  z-index:20;
+  align-items:center;
+  z-index:100;
 }
 .modal.active{display:flex}
 
 .modal-box{
   background:#111;
+  padding:34px;
   border-radius:26px;
-  padding:44px;
-  max-width:430px;
+  max-width:420px;
   width:90%;
-  animation:pop .4s ease;
+  text-align:center;
 }
-@keyframes pop{
-  from{transform:scale(.75);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-.modal-box p{opacity:.8;margin-top:6px}
-.buy{
-  margin-top:28px;
+.modal-box img{
   width:100%;
-  padding:16px;
-  border:none;
+  border-radius:16px;
+  margin-bottom:18px;
+}
+.qr{
+  width:220px;
+  margin:22px auto;
+}
+.qr img{
+  width:100%;
+  border-radius:14px;
+}
+.buy{
+  width:100%;
+  padding:15px;
   border-radius:50px;
+  border:none;
   background:linear-gradient(135deg,#ffd700,#ffb700);
   font-weight:900;
 }
 
-.qr{text-align:center;margin-top:24px}
-.qr img{width:180px;border-radius:12px}
-
-footer{
-  text-align:center;
-  padding:40px;
-  opacity:.45;
-}
+footer{text-align:center;padding:40px 0;opacity:.4}
 </style>
 </head>
 
 <body>
 
-<section class="hero">
+<div class="hero">
   <div>
-    <h1>Institutional Trading Knowledge</h1>
-    <p>MSNR • ICT • SMC – Premium E-Books</p>
-    <button onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">
-      Explore Strategies
-    </button>
+    <h1>Premium Trading E-Books</h1>
+    <p>ICT • SMC • Structure Mastery</p>
+    <a href="#products">ดูสินค้า</a>
   </div>
-</section>
+</div>
 
-<section class="products" id="shop">
-  <h2>Premium E-Books</h2>
+<section id="products">
+<h2>Premium E-Books</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card" onclick="openModal('ICT Trading System','Smart Money + Liquidity Model','339')">
-      <div class="badge">BEST SELLER</div>
-      <div class="icon">📘</div>
+  <div class="card">
+    <div class="cover"><img src="ict.jpg"></div>
+    <div class="content">
       <h3>ICT Trading System</h3>
       <div class="tag">Institutional Concept</div>
-      <div class="divider"></div>
       <div class="price">฿339</div>
-      <button class="buy-mini">ดูรายละเอียด</button>
+      <button class="btn"
+        onclick="openModal('ict.jpg','ICT Trading System','Institutional Concept','339','qr-ict.png')">
+        ดูรายละเอียด
+      </button>
     </div>
+  </div>
 
-    <div class="card" onclick="openModal('SMC Pro Blueprint','Orderblock + BOS','290')">
-      <div class="badge">POPULAR</div>
-      <div class="icon">📕</div>
+  <div class="card">
+    <div class="cover"><img src="smc.jpg"></div>
+    <div class="content">
       <h3>SMC Pro Blueprint</h3>
       <div class="tag">Smart Money Concept</div>
-      <div class="divider"></div>
       <div class="price">฿290</div>
-      <button class="buy-mini">ดูรายละเอียด</button>
+      <button class="btn"
+        onclick="openModal('smc.jpg','SMC Pro Blueprint','Smart Money Concept','290','qr-smc.png')">
+        ดูรายละเอียด
+      </button>
     </div>
+  </div>
 
-    <div class="card" onclick="openModal('MSNR Advanced','Market Structure Mastery','459')">
-      <div class="icon">📙</div>
+  <div class="card">
+    <div class="cover"><img src="msnr.jpg"></div>
+    <div class="content">
       <h3>MSNR Advanced</h3>
       <div class="tag">Structure Mastery</div>
-      <div class="divider"></div>
       <div class="price">฿459</div>
-      <button class="buy-mini">ดูรายละเอียด</button>
+      <button class="btn"
+        onclick="openModal('msnr.jpg','MSNR Advanced','Structure Mastery','459','qr-msnr.png')">
+        ดูรายละเอียด
+      </button>
     </div>
-
   </div>
+
+</div>
 </section>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">
+    <img id="mImg">
     <h3 id="mTitle"></h3>
     <p id="mDesc"></p>
     <div class="price" id="mPrice"></div>
 
     <div class="qr">
-      <p>สแกนจ่าย PromptPay</p>
-      <img src="QR.jpg">
+      <img id="mQR">
     </div>
 
     <button class="buy" onclick="goLine()">แจ้งชำระเงินทาง LINE</button>
   </div>
 </div>
 
-<footer>© 2026 Institutional Trading Knowledge</footer>
+<footer>© 2026 Premium Trading E-Books</footer>
 
 <script>
 const modal=document.getElementById("modal");
+const mImg=document.getElementById("mImg");
+const mTitle=document.getElementById("mTitle");
+const mDesc=document.getElementById("mDesc");
+const mPrice=document.getElementById("mPrice");
+const mQR=document.getElementById("mQR");
 
-function openModal(title,desc,price){
+function openModal(img,title,desc,price,qr){
+  mImg.src=img;
   mTitle.innerText=title;
   mDesc.innerText=desc;
   mPrice.innerText="฿"+price;
+  mQR.src=qr;
   modal.classList.add("active");
 }
-modal.onclick=e=>{if(e.target===modal) modal.classList.remove("active")}
+
+modal.onclick=e=>{
+  if(e.target===modal) modal.classList.remove("active");
+}
 
 function goLine(){
-  location.href="https://line.me/R/ti/p/firstzy77"
+  window.location.href =
+  "https://line.me/R/oaMessage/@firstzy77/?แจ้งชำระเงินสินค้า";
 }
 </script>
 
