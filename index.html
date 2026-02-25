@@ -1,255 +1,617 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>Professional Trading System</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>PRO TRADING | Exclusive System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Fonts: ใช้ Kanit ทั้งระบบ ปรับน้ำหนักให้ครอบคลุม -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;900&family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030305;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.08);
+            --gold: #E5B869;
+            --gold-glow: rgba(229, 184, 105, 0.4);
+            --cyan: #00F0FF;
+            --cyan-glow: rgba(0, 240, 255, 0.3);
+            --text-main: #FFFFFF;
+            --text-muted: #8892B0;
+            --danger: #FF3366;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
- font-family:'Kanit',sans-serif;
- background:#000;color:#fff;
- overflow-x:hidden;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* BACKGROUND */
-.bg{
- position:fixed;inset:0;z-index:-1;
- background:
- radial-gradient(circle at 20% 20%,#1e1e1e,transparent 45%),
- radial-gradient(circle at 80% 30%,#3a2f00,transparent 50%),
- radial-gradient(circle at 50% 80%,#002d2a,transparent 45%);
-}
+        body {
+            /* เปลี่ยนมาใช้ Kanit เป็นหลัก */
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased; /* ทำให้ฟอนต์ดูคมชัดขึ้นบนจอบางรุ่น */
+        }
 
-/* FLASH */
-.flash{
- padding:14px;text-align:center;
- font-family:'Poppins',sans-serif;
- font-weight:800;
- background:linear-gradient(270deg,#ff004c,#ffb700,#ff004c);
- background-size:400% 400%;
- animation:move 6s ease infinite;
- box-shadow:0 0 40px rgba(255,120,0,.8);
-}
-.flash span{
- background:#000;
- padding:6px 16px;
- border-radius:30px;
- color:#ffd700;
- margin-left:8px;
-}
-@keyframes move{
- 0%{background-position:0%}
- 50%{background-position:100%}
- 100%{background-position:0%}
-}
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--surface-hover); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-/* PAGE */
-.page{
- min-height:100vh;
- padding:90px 8%;
- display:flex;
- align-items:center;
-}
+        /* Animated Background Mesh */
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(229, 184, 105, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.05), transparent 25%);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px),
+            linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
 
-/* HERO */
-.hero{max-width:760px}
-.hero h1{
- font-family:'Poppins',sans-serif;
- font-size:3rem;
- font-weight:900;
- background:linear-gradient(135deg,#ffd700,#0bd3b0);
- -webkit-background-clip:text;
- -webkit-text-fill-color:transparent;
-}
-.hero p{margin:18px 0 30px;opacity:.85}
+        /* Top Notification Bar */
+        .top-bar {
+            background: rgba(255, 51, 102, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--danger);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .timer {
+            background: var(--danger);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
+        }
 
-/* CTA */
-.hero button{
- width:100%;max-width:420px;
- padding:18px;
- border:none;border-radius:60px;
- background:linear-gradient(135deg,#0bd3b0,#068b79);
- color:#fff;font-weight:800;
- cursor:pointer;
- box-shadow:0 0 35px rgba(11,211,176,.7);
-}
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
 
-/* GRID */
-#shop{align-items:flex-start}
-.grid{
- width:100%;
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
- gap:30px;
-}
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+            position: relative;
+        }
+        .hero-badge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+            animation: fadeInDown 1s ease;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--gold) 0%, #FFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
 
-/* CARD */
-.card{
- background:linear-gradient(180deg,#0e0e0e,#050505);
- border-radius:28px;
- border:1px solid rgba(255,215,0,.18);
- overflow:hidden;
- opacity:0;
- transform:translateY(40px);
- animation:up .7s forwards;
-}
-@keyframes up{to{opacity:1;transform:none}}
+        /* Primary Button */
+        .btn-glow {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 45px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
+            background: linear-gradient(135deg, var(--gold), #FFF);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 10px 30px var(--gold-glow);
+        }
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--gold-glow);
+        }
+        .btn-glow::after {
+            content: '↓';
+            margin-left: 10px;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        .btn-glow:hover::after {
+            transform: translateY(3px);
+        }
 
-/* IMAGE */
-.img{
- height:150px;
- overflow:hidden;
-}
-.img img{
- width:100%;
- height:100%;
- object-fit:cover;
- display:block;
-}
+        /* Products Section */
+        .shop-section {
+            padding: 80px 0 120px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        .section-title span { color: var(--gold); }
 
-/* BODY */
-.body{padding:20px}
-.tag{
- background:#ff004c;
- padding:6px 16px;
- border-radius:50px;
- font-size:.7rem;
- font-weight:700;
-}
-.body h3{
- margin:12px 0 4px;
- font-family:'Poppins',sans-serif;
-}
-.old{opacity:.4;text-decoration:line-through}
-.price{
- font-size:1.7rem;
- color:#ffd700;
- font-weight:900;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
 
-/* BUTTON */
-.btn{
- width:100%;
- margin-top:18px;
- padding:15px;
- border:none;border-radius:50px;
- background:linear-gradient(135deg,#0bd3b0,#068b79);
- color:#fff;font-weight:800;
- cursor:pointer;
- box-shadow:0 0 20px rgba(11,211,176,.5);
-}
+        /* Product Card - Glassmorphism */
+        .card {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(229, 184, 105, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow);
+        }
 
-/* DETAIL */
-.detail{
- position:fixed;inset:0;
- background:#000;
- z-index:999;
- transform:translateY(100%);
- transition:.45s;
- overflow-y:auto;
-}
-.detail.show{transform:none}
-.detail-head{padding:16px;font-size:20px;cursor:pointer}
-.detail-body{
- max-width:520px;margin:auto;
- padding:20px 20px 70px;text-align:center;
-}
-.qr{
- margin:20px 0;padding:20px;
- background:#111;border-radius:20px;
-}
-.qr img{width:180px}
-.line-btn{
- width:100%;padding:16px;
- border:none;border-radius:50px;
- background:#06c755;color:#fff;
- font-weight:800;
-}
-#lineQR{display:none}
-</style>
+        .card-img {
+            height: 200px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-img img {
+            transform: scale(1.08);
+        }
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--danger);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+        .card-price-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .price-new {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .price-old {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-weight: 300;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 12px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .card:hover .btn-buy {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* Modal / Popup */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #0D0D12;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--surface);
+            border: none;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        .qr-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 0 auto 25px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .btn-line {
+            width: 100%;
+            padding: 16px;
+            background: #00B900;
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 185, 0, 0.2);
+        }
+        .btn-line:hover {
+            background: #009900;
+            transform: translateY(-2px);
+        }
+        .qr-line-toggle {
+            display: none;
+            margin-top: 20px;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .top-bar { font-size: 0.9rem; flex-direction: column; gap: 8px; padding: 12px; }
+            .shop-section { padding: 50px 0; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="bg"></div>
 
-<div class="flash">
- ⚡ FLASH SALE วันนี้เท่านั้น
- <span id="time"></span>
-</div>
+    <!-- Background Elements -->
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
 
-<section class="page">
- <div class="hero">
-  <h1>Professional Trading System</h1>
-  <p>ICT • Break Block • MSNR • Course + Ebook<br>ระบบเทรดที่ผมใช้ทั้งหมดรวมไว้ที่นี่แล้ว</p>
-  <button onclick="scrollToShop()">ดูสินค้าทั้งหมด</button>
- </div>
-</section>
+    <!-- Flash Sale Bar -->
+    <div class="top-bar">
+        <span>⚡ SPECIAL OFFER ENDS IN</span>
+        <div class="timer" id="timeDisplay">00 : 00 : 00</div>
+    </div>
 
-<section class="page" id="shop">
- <div class="grid" id="grid"></div>
-</section>
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-badge">Elite Strategy</div>
+        <h1>ระบบเทรดระดับมืออาชีพ <br><span>(PRO TRADING)</span></h1>
+        <p>ยกระดับการเทรดของคุณด้วยระบบ ICT, Break Block และ MSNR ที่ถูกพิสูจน์แล้วว่าใช้งานได้จริง รวมเทคนิคทั้งหมดพร้อม E-Book และคอร์สเรียนฉบับสมบูรณ์</p>
+        <button class="btn-glow" onclick="scrollToShop()">ดูสินค้าราคาพิเศษ</button>
+    </section>
 
-<div class="detail" id="detail">
- <div class="detail-head" onclick="closeDetail()">← กลับ</div>
- <div class="detail-body">
-  <h2 id="dTitle"></h2>
-  <div class="price" id="dPrice"></div>
-  <div class="qr"><img src="QR.jpg"></div>
-  <button class="line-btn" onclick="toggleLine()">📨 ส่งสลิปทาง LINE / กด👆🏻</button>
-  <div class="qr" id="lineQR"><img src="qrline.jpg"></div>
- </div>
-</div>
+    <!-- Shop Section -->
+    <section class="shop-section container" id="shop">
+        <h2 class="section-title">ระบบเทรด <span>ทั้งหมดของเรา</span></h2>
+        <div class="grid" id="productGrid">
+            <!-- Products will be injected here via JS -->
+        </div>
+    </section>
 
-<script>
-const end=Date.now()+6*60*60*1000;
-setInterval(()=>{
- const t=end-Date.now();
- time.innerText=
- Math.floor(t/3600000)+"h "+
- Math.floor(t/60000)%60+"m "+
- Math.floor(t/1000)%60+"s";
-},1000);
+    <!-- Modal / Popup -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <h3 class="modal-title" id="mTitle">Product Name</h3>
+                <div class="price-new" id="mPrice" style="font-size: 1.8rem; margin-top: 5px;">฿0</div>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-top: 5px; font-weight: 300;">สแกนเพื่อชำระเงิน</p>
+            </div>
+            
+            <div class="qr-box">
+                <!-- ใส่รูป QR Code PromptPay ของคุณที่นี่ เช่น src="QR.jpg" -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="PromptPay QR">
+            </div>
 
-const products=[
- ["ICT Trading System",199,129,"ict.jpg"],
- ["Break Block M1.only",299,179,"smc.jpg"],
- ["MSNR Strategy",249,149,"msnr1.jpg"],
- ["Course + Ebook",599,499,"ceb.jpg"]
-];
+            <button class="btn-line" onclick="toggleLineQR()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.114.281.072.717.035.993-.05.376-.32 1.558-.393 1.884-.118.52-.601 2.943 2.583 1.606 3.184-1.337 8.528-5.018 10.669-8.498C23.513 14.372 24 12.441 24 10.304zM7.564 12.871H4.136a.44.44 0 0 1-.439-.44V7.61c0-.242.197-.44.439-.44h3.428a.44.44 0 0 1 .439.44v.936a.44.44 0 0 1-.439.44H5.513v1.5h2.051a.44.44 0 0 1 .439.439v.936a.44.44 0 0 1-.439.41zm3.879.032a.434.434 0 0 1-.439-.44V7.61a.44.44 0 0 1 .439-.44h.936a.44.44 0 0 1 .439.44v4.851a.44.44 0 0 1-.439.44h-.936zm4.618-2.651h-1.63v2.211a.44.44 0 0 1-.439.44h-.936a.44.44 0 0 1-.439-.44V7.61c0-.242.197-.44.439-.44h.936a.44.44 0 0 1 .439.44v2.21h1.63V7.61c0-.242.197-.44.439-.44h.936a.44.44 0 0 1 .439.44v4.851a.44.44 0 0 1-.439.44h-.936a.44.44 0 0 1-.439-.44v-2.211zm4.492 1.275c0 .242-.197.44-.439.44h-2.184a.44.44 0 0 1-.439-.44V7.61c0-.242.197-.44.439-.44h2.184a.44.44 0 0 1 .439.44v.936a.44.44 0 0 1-.439.44h-1.248v.564h1.248a.44.44 0 0 1 .439.439v.936a.44.44 0 0 1-.439.41h-1.248v.564h1.248a.44.44 0 0 1 .439.439v.936z"/></svg>
+                แจ้งโอนเงินผ่าน LINE
+            </button>
+            
+            <div class="qr-line-toggle" id="lineQRBox">
+                <div class="qr-box" style="margin-bottom:0; background:#f4f4f4;">
+                    <!-- ใส่รูป QR Code LINE ของคุณที่นี่ เช่น src="qrline.jpg" -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="LINE QR">
+                </div>
+                <p style="text-align:center; margin-top:10px; font-size:0.95rem; color:var(--text-muted); font-weight: 300;">เพิ่มเพื่อน @your_line_id</p>
+            </div>
+        </div>
+    </div>
 
-products.forEach((p,i)=>{
- grid.innerHTML+=`
- <div class="card" style="animation-delay:${i*.1}s">
-  <div class="img"><img src="${p[3]}" alt="${p[0]}"></div>
-  <div class="body">
-   <span class="tag">FLASH SALE</span>
-   <h3>${p[0]}</h3>
-   <div class="old">฿${p[1]}</div>
-   <div class="price">฿${p[2]}</div>
-   <button class="btn" onclick="openDetail('${p[0]}',${p[2]})">ดูรายละเอียด</button>
-  </div>
- </div>`;
-});
+    <script>
+        // --- Persistent Timer Logic (Real Countdown) ---
+        const DURATION = 6 * 60 * 60 * 1000; // 6 ชั่วโมง (มิลลิวินาที)
+        let endTime = localStorage.getItem('flashSaleEndTime');
 
-function scrollToShop(){
- shop.scrollIntoView({behavior:"smooth"});
-}
-function openDetail(t,p){
- dTitle.innerText=t;
- dPrice.innerText="฿"+p;
- detail.classList.add("show");
-}
-function closeDetail(){
- detail.classList.remove("show");
- lineQR.style.display="none";
-}
-function toggleLine(){
- lineQR.style.display=lineQR.style.display==="block"?"none":"block";
-}
-</script>
+        // ตรวจสอบว่ามีเวลาเก็บไว้ไหม หรือ เวลาที่เก็บไว้หมดไปหรือยัง
+        if (!endTime || Date.now() > parseInt(endTime)) {
+            // ถ้าไม่มีหรือหมดเวลาแล้ว ให้ตั้งเวลาใหม่
+            endTime = Date.now() + DURATION;
+            localStorage.setItem('flashSaleEndTime', endTime);
+        } else {
+            // ถ้ามีแล้วและยังไม่หมด ให้ใช้เวลาเดิมแปลงกลับเป็นตัวเลข
+            endTime = parseInt(endTime);
+        }
+
+        const timeDisplay = document.getElementById('timeDisplay');
+        
+        setInterval(() => {
+            const t = endTime - Date.now();
+            
+            // ถ้าเวลาหมด ให้แสดง 00:00:00 ไปเลย
+            if (t <= 0) {
+                timeDisplay.innerText = "00 : 00 : 00";
+                return;
+            }
+            
+            const h = String(Math.floor(t / 3600000)).padStart(2, '0');
+            const m = String(Math.floor(t / 60000) % 60).padStart(2, '0');
+            const s = String(Math.floor(t / 1000) % 60).padStart(2, '0');
+            
+            timeDisplay.innerText = `${h} : ${m} : ${s}`;
+        }, 1000);
+
+        // --- Products Data ---
+        // สามารถเปลี่ยนรูปกลับเป็น ict.jpg, smc.jpg, msnr1.jpg, ceb.jpg ได้เลยครับ
+        const products = [
+            { title: "ICT Trading System", oldPrice: 199, price: 129, img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" },
+            { title: "Break Block M1 only", oldPrice: 299, price: 179, img: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=800&q=80" },
+            { title: "MSNR Strategy", oldPrice: 249, price: 149, img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" },
+            { title: "Course + Ebook (ฉบับเต็ม)", oldPrice: 599, price: 499, img: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80" }
+        ];
+
+        const grid = document.getElementById('productGrid');
+
+        // Render Products
+        products.forEach((p, index) => {
+            const cardHTML = `
+                <div class="card fade-in-element" style="transition-delay: ${index * 0.1}s">
+                    <div class="card-img">
+                        <span class="card-tag">🔥 ลดพิเศษวันนี้</span>
+                        <img src="${p.img}" alt="${p.title}" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${p.title}</h3>
+                        <div class="card-price-wrap">
+                            <span class="price-new">฿${p.price}</span>
+                            <span class="price-old">฿${p.oldPrice}</span>
+                        </div>
+                        <button class="btn-buy" onclick="openModal('${p.title}', ${p.price})">ดูรายละเอียดและสั่งซื้อ</button>
+                    </div>
+                </div>
+            `;
+            grid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // --- Interactions ---
+        function scrollToShop() {
+            document.getElementById('shop').scrollIntoView({ behavior: "smooth" });
+        }
+
+        const modal = document.getElementById('checkoutModal');
+        const lineQRBox = document.getElementById('lineQRBox');
+
+        function openModal(title, price) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mPrice').innerText = "฿" + price;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            lineQRBox.style.display = "none"; 
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleLineQR() {
+            lineQRBox.style.display = lineQRBox.style.display === "block" ? "none" : "block";
+        }
+
+        // Close modal when clicking outside the box
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- Scroll Animation Observer ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-element').forEach(el => {
+            observer.observe(el);
+        });
+
+    </script>
 </body>
 </html>
+
+
