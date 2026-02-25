@@ -475,8 +475,8 @@
             </div>
             
             <div class="qr-box">
-                <!-- ใส่รูป QR Code PromptPay ของคุณที่นี่ เช่น src="QR.jpg" -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="PromptPay QR">
+                <!-- ไฟล์ QR Code การโอนเงิน -->
+                <img src="QR.jpg" alt="PromptPay QR">
             </div>
 
             <button class="btn-line" onclick="toggleLineQR()">
@@ -486,8 +486,8 @@
             
             <div class="qr-line-toggle" id="lineQRBox">
                 <div class="qr-box" style="margin-bottom:0; background:#f4f4f4;">
-                    <!-- ใส่รูป QR Code LINE ของคุณที่นี่ เช่น src="qrline.jpg" -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="LINE QR">
+                    <!-- ไฟล์ QR Code LINE ของคุณ -->
+                    <img src="qrline.jpg" alt="LINE QR">
                 </div>
                 <p style="text-align:center; margin-top:10px; font-size:0.95rem; color:var(--text-muted); font-weight: 300;">เพิ่มเพื่อน @your_line_id</p>
             </div>
@@ -528,12 +528,12 @@
         }, 1000);
 
         // --- Products Data ---
-        // สามารถเปลี่ยนรูปกลับเป็น ict.jpg, smc.jpg, msnr1.jpg, ceb.jpg ได้เลยครับ
+        // ใช้ชื่อไฟล์รูปตามที่คุณส่งมา
         const products = [
-            { title: "ICT Trading System", oldPrice: 199, price: 129, img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" },
-            { title: "Break Block M1 only", oldPrice: 299, price: 179, img: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=800&q=80" },
-            { title: "MSNR Strategy", oldPrice: 249, price: 149, img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" },
-            { title: "Course + Ebook (ฉบับเต็ม)", oldPrice: 599, price: 499, img: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80" }
+            { title: "ICT Trading System", oldPrice: 199, price: 129, img: "ict.jpg" },
+            { title: "Break Block M1 only", oldPrice: 299, price: 179, img: "smc.jpg" },
+            { title: "MSNR Strategy", oldPrice: 249, price: 149, img: "msnr1.jpg" },
+            { title: "Course + Ebook (ฉบับเต็ม)", oldPrice: 599, price: 499, img: "ceb.jpg" }
         ];
 
         const grid = document.getElementById('productGrid');
